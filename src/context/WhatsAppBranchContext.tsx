@@ -9,19 +9,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone } from "lucide-react";
 
-// Defina os números aqui (apenas números, sem caracteres especiais)
+// --- CONFIGURE SEUS NÚMEROS AQUI ---
 const BRANCHES = [
   {
     id: 'curitiba',
     name: 'Matriz Curitiba',
     address: 'Centro / Batel / Água Verde',
-    phone: '5541999999999', // <--- COLOQUE O NÚMERO REAL AQUI
+    phone: '5541999999999', // <--- Troque pelo número real da Matriz
   },
   {
     id: 'fazenda',
     name: 'Unidade Fazenda Rio Grande',
     address: 'Região Metropolitana',
-    phone: '5541988888888', // <--- COLOQUE O NÚMERO REAL AQUI
+    phone: '5541988888888', // <--- Troque pelo número real da Filial
   }
 ];
 
@@ -35,9 +35,11 @@ const WhatsAppBranchContext = createContext<WhatsAppBranchContextType | undefine
 
 export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
+  // Armazena a função de callback no estado
   const [pendingCallback, setPendingCallback] = useState<BranchCallback | null>(null);
 
   const openBranchDialog = (callback: BranchCallback) => {
+    // O React pede que, ao salvar uma função no useState, usemos essa sintaxe () => callback
     setPendingCallback(() => callback);
     setIsOpen(true);
   };
@@ -45,11 +47,16 @@ export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) =>
   const handleBranchSelect = (phone: string) => {
     if (pendingCallback) {
       const url = pendingCallback(phone);
-      // AQUI ESTAVA FALTANDO: Força a abertura do link
-      window.open(url, '_blank'); 
+      
+      // --- CORREÇÃO DO ERRO ---
+      // window.open é bloqueado em muitos iPhones/Androids.
+      // Usar window.location.href força o navegador a abrir o link/app imediatamente.
+      window.location.href = url;
     }
+    
+    // Fecha o modal e limpa o estado
     setIsOpen(false);
-    setPendingCallback(null);
+    setTimeout(() => setPendingCallback(null), 100);
   };
 
   return (
@@ -57,8 +64,8 @@ export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) =>
       {children}
       
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        {/* Z-INDEX 9999 GARANTE QUE O MODAL FIQUE NA FRENTE DE TUDO NO MOBILE */}
-        <DialogContent className="sm:max-w-md z-[9999] bg-white">
+        {/* Z-INDEX 9999 e !important para garantir que fique em cima de tudo */}
+        <DialogContent className="sm:max-w-md z-[9999] !z-[9999] bg-white">
           <DialogHeader>
             <DialogTitle className="text-center text-xl font-display font-bold text-foreground">
               Escolha a Unidade
@@ -73,10 +80,10 @@ export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) =>
               <Button
                 key={branch.id}
                 variant="outline"
-                className="h-auto py-4 px-6 flex items-center justify-between hover:border-primary/50 hover:bg-primary/5 group transition-all"
+                className="h-auto py-4 px-6 flex items-center justify-between hover:border-primary/50 hover:bg-primary/5 group transition-all cursor-pointer"
                 onClick={() => handleBranchSelect(branch.phone)}
               >
-                <div className="flex items-center gap-4 text-left">
+                <div className="flex items-center gap-4 text-left pointer-events-none">
                   <div className="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
@@ -89,7 +96,7 @@ export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) =>
                     </span>
                   </div>
                 </div>
-                <Phone className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                <Phone className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors pointer-events-none" />
               </Button>
             ))}
           </div>
