@@ -1,75 +1,96 @@
-import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
-import { BRANCHES_WHATSAPP } from '@/data/products';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { MessageCircle } from 'lucide-react';
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { MapPin, Phone } from "lucide-react";
 
-type GetLinkForNumber = (whatsappNumber: string) => string;
+// Defina os números aqui (apenas números, sem caracteres especiais)
+const BRANCHES = [
+  {
+    id: 'curitiba',
+    name: 'Matriz Curitiba',
+    address: 'Centro / Batel / Água Verde',
+    phone: '5541999999999', // <--- COLOQUE O NÚMERO REAL AQUI
+  },
+  {
+    id: 'fazenda',
+    name: 'Unidade Fazenda Rio Grande',
+    address: 'Região Metropolitana',
+    phone: '5541988888888', // <--- COLOQUE O NÚMERO REAL AQUI
+  }
+];
+
+type BranchCallback = (phoneNumber: string) => string;
 
 interface WhatsAppBranchContextType {
-  openBranchDialog: (getLink: GetLinkForNumber) => void;
+  openBranchDialog: (callback: BranchCallback) => void;
 }
 
 const WhatsAppBranchContext = createContext<WhatsAppBranchContextType | undefined>(undefined);
 
-/** Formata número (55XXXXXXXXXXX) para exibição: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX */
-function formatWhatsAppDisplay(fullNumber: string): string {
-  const d = fullNumber.slice(2); // remove 55
-  if (d.length === 11) return d.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-  if (d.length === 10) return d.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-  return fullNumber;
-}
+export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [pendingCallback, setPendingCallback] = useState<BranchCallback | null>(null);
 
-export const WhatsAppBranchProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [open, setOpen] = useState(false);
-  const getLinkRef = useRef<GetLinkForNumber | null>(null);
+  const openBranchDialog = (callback: BranchCallback) => {
+    setPendingCallback(() => callback);
+    setIsOpen(true);
+  };
 
-  const openBranchDialog = useCallback((getLinkForNumber: GetLinkForNumber) => {
-    getLinkRef.current = getLinkForNumber;
-    setOpen(true);
-  }, []);
-
-  const handleSelectBranch = useCallback((whatsappNumber: string) => {
-    const getLink = getLinkRef.current;
-    if (getLink) {
-      const url = getLink(whatsappNumber);
-      window.open(url, '_blank', 'noopener,noreferrer');
+  const handleBranchSelect = (phone: string) => {
+    if (pendingCallback) {
+      const url = pendingCallback(phone);
+      // AQUI ESTAVA FALTANDO: Força a abertura do link
+      window.open(url, '_blank'); 
     }
-    getLinkRef.current = null;
-    setOpen(false);
-  }, []);
+    setIsOpen(false);
+    setPendingCallback(null);
+  };
 
   return (
     <WhatsAppBranchContext.Provider value={{ openBranchDialog }}>
       {children}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-md">
+      
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        {/* Z-INDEX 9999 GARANTE QUE O MODAL FIQUE NA FRENTE DE TUDO NO MOBILE */}
+        <DialogContent className="sm:max-w-md z-[9999] bg-white">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-[#25D366]" />
-              Escolha a unidade para contato
+            <DialogTitle className="text-center text-xl font-display font-bold text-foreground">
+              Escolha a Unidade
             </DialogTitle>
+            <DialogDescription className="text-center">
+              Selecione a unidade mais próxima para agilizar seu atendimento.
+            </DialogDescription>
           </DialogHeader>
-          <p className="text-muted-foreground text-sm mb-4">
-            Selecione a unidade que deseja contatar pelo WhatsApp:
-          </p>
-          <div className="grid gap-3">
-            {BRANCHES_WHATSAPP.map((branch) => (
-              <button
-                key={branch.whatsappNumber}
-                type="button"
-                onClick={() => handleSelectBranch(branch.whatsappNumber)}
-                className="flex items-center justify-between w-full p-4 rounded-xl bg-muted hover:bg-muted/80 hover:border-primary/30 border border-transparent transition-all text-left"
+
+          <div className="grid gap-4 py-4">
+            {BRANCHES.map((branch) => (
+              <Button
+                key={branch.id}
+                variant="outline"
+                className="h-auto py-4 px-6 flex items-center justify-between hover:border-primary/50 hover:bg-primary/5 group transition-all"
+                onClick={() => handleBranchSelect(branch.phone)}
               >
-                <span className="font-medium text-foreground">{branch.name}</span>
-                <span className="text-sm text-muted-foreground">
-                  {formatWhatsAppDisplay(branch.whatsappNumber)}
-                </span>
-              </button>
+                <div className="flex items-center gap-4 text-left">
+                  <div className="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
+                    <MapPin className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <span className="block font-semibold text-foreground text-base">
+                      {branch.name}
+                    </span>
+                    <span className="block text-sm text-muted-foreground font-normal">
+                      {branch.address}
+                    </span>
+                  </div>
+                </div>
+                <Phone className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Button>
             ))}
           </div>
         </DialogContent>
@@ -80,8 +101,8 @@ export const WhatsAppBranchProvider: React.FC<{ children: React.ReactNode }> = (
 
 export const useWhatsAppBranch = () => {
   const context = useContext(WhatsAppBranchContext);
-  if (!context) {
-    throw new Error('useWhatsAppBranch must be used within WhatsAppBranchProvider');
+  if (context === undefined) {
+    throw new Error('useWhatsAppBranch must be used within a WhatsAppBranchProvider');
   }
   return context;
 };

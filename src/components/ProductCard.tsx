@@ -53,11 +53,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </span>
         )}
 
-        {/* Price Tag */}
-        <div className="absolute bottom-3 right-3 price-tag">
-          <span className="text-xs">Só</span>
-          <span className="text-xl font-bold ml-1">R$ {currentPrice.toFixed(2)}</span>
-          <span className="text-xs block">/{selectedWeight}</span>
+        {/* Price Tag - VISUAL AMARELO AJUSTADO (Ref: Imagem) */}
+        <div className="absolute bottom-2 right-2 bg-yellow-400 text-black 
+                      px-2 py-1.5 rounded-md shadow-md min-w-[90px]">
+          
+          {/* Linha Superior: SÓ (Esq) ... Preço (Dir) */}
+          <div className="flex items-baseline justify-between leading-none gap-2">
+            <span className="text-[10px] font-bold uppercase">Só</span>
+            <span className="text-lg font-extrabold"> {/* Fonte afinada: Black -> Extrabold */}
+              R$ {currentPrice.toFixed(2).replace('.', ',')}
+            </span>
+          </div>
+          
+          {/* Linha Inferior: Peso (Esq) */}
+          <div className="text-left leading-none mt-0.5">
+            <span className="text-[10px] font-bold">/{selectedWeight}</span>
+          </div>
         </div>
       </div>
 
