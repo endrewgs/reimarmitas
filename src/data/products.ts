@@ -24,6 +24,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/1.png",
   },
   {
     id: 2,
@@ -33,6 +34,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/2.png",
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/3.png",
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/4.png",
   },
   {
     id: 5,
@@ -60,6 +64,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/5.png",
   },
   {
     id: 6,
@@ -69,6 +74,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/6.png",
   },
   {
     id: 7,
@@ -78,6 +84,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/7.png",
   },
   {
     id: 8,
@@ -87,6 +94,7 @@ export const products: Product[] = [
     basePrice: 9.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/8.png",
   },
   {
     id: 9,
@@ -95,6 +103,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/9.png",
   },
   {
     id: 10,
@@ -103,6 +112,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/10.png",
   },
   {
     id: 11,
@@ -111,6 +121,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/11.png",
   },
   {
     id: 12,
@@ -119,6 +130,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/12.png",
   },
   {
     id: 13,
@@ -127,6 +139,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/13.png",
   },
   {
     id: 14,
@@ -135,6 +148,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/14.png",
   },
   {
     id: 15,
@@ -143,6 +157,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/15.png",
   },
   {
     id: 16,
@@ -151,6 +166,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/16.png",
   },
   {
     id: 17,
@@ -159,6 +175,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/17.png",
   },
   {
     id: 18,
@@ -167,6 +184,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/18.png",
   },
   {
     id: 19,
@@ -175,6 +193,7 @@ export const products: Product[] = [
     category: "tradicional",
     basePrice: 9.9,
     weight: "350g",
+    image: "/produtos/19.png",
   },
 
   // Tradicionais com legumes - R$ 10,90 (350g)
@@ -186,6 +205,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/20.png",
   },
   {
     id: 21,
@@ -195,6 +215,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/21.png",
   },
   {
     id: 22,
@@ -204,6 +225,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/22.png",
   },
   {
     id: 23,
@@ -213,6 +235,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/23.png",
   },
   {
     id: 24,
@@ -222,6 +245,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/24.png",
   },
   {
     id: 25,
@@ -231,6 +255,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/25.png",
   },
   {
     id: 26,
@@ -240,6 +265,7 @@ export const products: Product[] = [
     basePrice: 10.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/26.png",
   },
 
   // Premium - R$ 12,90 (350g)
@@ -251,6 +277,7 @@ export const products: Product[] = [
     basePrice: 12.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/27.png",
   },
   {
     id: 28,
@@ -260,6 +287,7 @@ export const products: Product[] = [
     basePrice: 12.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/28.png",
   },
   {
     id: 29,
@@ -269,6 +297,7 @@ export const products: Product[] = [
     basePrice: 14.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/29.png",
   },
   {
     id: 30,
@@ -278,6 +307,7 @@ export const products: Product[] = [
     basePrice: 14.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/30.png",
   },
   {
     id: 31,
@@ -287,6 +317,7 @@ export const products: Product[] = [
     basePrice: 14.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/31.png",
   },
   {
     id: 32,
@@ -296,6 +327,7 @@ export const products: Product[] = [
     basePrice: 14.9,
     weight: "350g",
     hasIntegralRice: true,
+    image: "/produtos/32.png",
   },
 
   // Low Carb - R$ 12,90 (350g)
@@ -306,6 +338,7 @@ export const products: Product[] = [
     category: "lowcarb",
     basePrice: 12.9,
     weight: "350g",
+    image: "/produtos/33.png",
   },
   {
     id: 34,
@@ -314,6 +347,7 @@ export const products: Product[] = [
     category: "lowcarb",
     basePrice: 12.9,
     weight: "350g",
+    image: "/produtos/34.png",
   },
   {
     id: 35,
@@ -322,6 +356,7 @@ export const products: Product[] = [
     category: "lowcarb",
     basePrice: 12.9,
     weight: "350g",
+    image: "/produtos/35.png",
   },
   {
     id: 36,
@@ -330,6 +365,7 @@ export const products: Product[] = [
     category: "lowcarb",
     basePrice: 12.9,
     weight: "350g",
+    image: "/produtos/36.png",
   },
 ];
 
@@ -339,7 +375,14 @@ export const weightMultipliers: Record<WeightOption, { label: string; multiplier
   "500g": { label: "500g (+25%)", multiplier: 1.25 },
 };
 
-export const WHATSAPP_NUMBER = "554199851704";
+export const WHATSAPP_NUMBER = "5541999851704";
+
+/** Unidades para escolha no WhatsApp (pedido / contato) */
+export const BRANCHES_WHATSAPP = [
+  { name: "Matriz Curitiba", whatsappNumber: "5541999851704" },
+  { name: "Unidade Fazenda Rio Grande", whatsappNumber: "5541997030071" },
+] as const;
+
 export const INSTAGRAM_URL = "https://www.instagram.com/marmitas.congelada.curitiba?igsh=MTlzZWRzdXFkMmM0dA%3D%3D";
 export const WEBSITE_URL = "https://www.reidasmarmitascongeladas.com/";
 export const EMAIL = "reidasmarmitasm@gmail.com";

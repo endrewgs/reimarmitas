@@ -1,18 +1,27 @@
 import { Package, Check, AlertCircle } from 'lucide-react';
-import kitImage from '@/assets/kit-marmitas.jpg';
+import kitImageFallback from '@/assets/kit-marmitas.jpg';
+
+/** Vídeo do kit (arquivo em public/kit-video.mp4) */
+const KIT_VIDEO_SRC = "/kit-video.mp4";
 
 export const KitsSection = () => {
   return (
     <section id="kits" className="py-16 bg-card">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
-          {/* Image */}
-          <div className="relative">
-            <div className="rounded-3xl overflow-hidden shadow-elevated">
-              <img
-                src={kitImage}
-                alt="Kit 10 Refeições Congeladas"
-                className="w-full h-auto object-cover"
+          {/* Vídeo */}
+          <div className="relative animate-fade-in-up">
+            <div className="rounded-3xl overflow-hidden shadow-elevated aspect-[4/5] bg-muted">
+              <video
+                src={KIT_VIDEO_SRC}
+                poster={kitImageFallback}
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-label="Kit 10 Refeições Congeladas"
               />
             </div>
             {/* Floating Badge */}
@@ -23,7 +32,7 @@ export const KitsSection = () => {
           </div>
 
           {/* Content */}
-          <div>
+          <div className="animate-fade-in-up animation-delay-100">
             <div className="flex items-center gap-3 mb-4">
               <Package className="w-10 h-10 text-primary" />
               <h2 className="section-title text-2xl md:text-3xl">

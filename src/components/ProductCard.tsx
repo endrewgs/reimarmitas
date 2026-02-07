@@ -18,6 +18,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const [isAdded, setIsAdded] = useState(false);
 
   const getProductImage = () => {
+    if (product.image) return product.image;
     if (product.category === 'lowcarb') return marmitaLowcarb;
     if (product.category === 'kit') return kitMarmitas;
     return marmitaTradicional;

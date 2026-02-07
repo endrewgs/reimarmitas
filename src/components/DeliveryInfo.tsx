@@ -15,7 +15,7 @@ export const DeliveryInfo = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center">
+          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center transition-transform duration-300 hover:scale-[1.03] hover:-translate-y-0.5">
             <Clock className="w-12 h-12 mx-auto mb-4 text-secondary" />
             <h3 className="font-semibold text-lg mb-2">Entrega Rápida</h3>
             <p className="text-primary-foreground/80 text-sm">
@@ -23,7 +23,7 @@ export const DeliveryInfo = () => {
             </p>
           </div>
 
-          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center">
+          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center transition-transform duration-300 hover:scale-[1.03] hover:-translate-y-0.5">
             <Truck className="w-12 h-12 mx-auto mb-4 text-secondary" />
             <h3 className="font-semibold text-lg mb-2">Frete Grátis</h3>
             <p className="text-primary-foreground/80 text-sm">
@@ -31,7 +31,7 @@ export const DeliveryInfo = () => {
             </p>
           </div>
 
-          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center">
+          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center transition-transform duration-300 hover:scale-[1.03] hover:-translate-y-0.5">
             <MapPin className="w-12 h-12 mx-auto mb-4 text-secondary" />
             <h3 className="font-semibold text-lg mb-2">Área de Entrega</h3>
             <p className="text-primary-foreground/80 text-sm">
@@ -39,7 +39,7 @@ export const DeliveryInfo = () => {
             </p>
           </div>
 
-          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center">
+          <div className="bg-primary-foreground/10 backdrop-blur rounded-2xl p-6 text-center transition-transform duration-300 hover:scale-[1.03] hover:-translate-y-0.5">
             <Gift className="w-12 h-12 mx-auto mb-4 text-secondary" />
             <h3 className="font-semibold text-lg mb-2">Brinde Garantido</h3>
             <p className="text-primary-foreground/80 text-sm">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, ShoppingCart, Phone, User, LogOut } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
 import AuthModal from "./AuthModal";
 import logo from "@/assets/logo-rei-marmitas.jpeg";
 
@@ -18,6 +19,9 @@ export const Header = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
   const { user, profile, signOut, loading } = useAuth();
+  const { openBranchDialog } = useWhatsAppBranch();
+
+  const handlePedirWhatsApp = () => openBranchDialog((num) => `https://wa.me/${num}`);
 
   const handleSignOut = async () => {
     await signOut();
@@ -29,14 +33,14 @@ export const Header = () => {
       <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm shadow-card">
         {/* Promo Banner */}
         <div className="promo-banner text-sm md:text-base">
-          <span className="animate-pulse">🎁</span> Entregas em até 120 minutos ou ganhe um brinde!{" "}
-          <span className="animate-pulse">🎁</span>
+          <span className="inline-block transition-transform duration-300 hover:scale-110">🎁</span> Entregas em até 120 minutos ou ganhe um brinde!{" "}
+          <span className="inline-block transition-transform duration-300 hover:scale-110">🎁</span>
         </div>
 
         <nav className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo (desktop) + WhatsApp Fazenda Rio Grande (mobile) */}
-            <a href="#" className="flex items-center">
+            <a href="#" className="flex items-center transition-transform duration-300 hover:scale-105 active:scale-100">
               <img
                 src={logo}
                 alt="Rei das Marmitas Express"
@@ -48,7 +52,7 @@ export const Header = () => {
             <ul className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-foreground/80 hover:text-primary font-medium transition-colors">
+                  <a href={link.href} className="text-foreground/80 hover:text-primary font-medium transition-colors duration-200">
                     {link.label}
                   </a>
                 </li>
@@ -97,15 +101,14 @@ export const Header = () => {
               </button>
 
               {/* WhatsApp Button - Desktop */}
-              <a
-                href="https://wa.me/554199851704"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={handlePedirWhatsApp}
                 className="hidden md:flex btn-whatsapp text-sm py-2"
               >
                 <Phone className="w-4 h-4" />
                 <span>Pedir Agora</span>
-              </a>
+              </button>
 
               {/* Mobile Menu Button */}
               <button
@@ -165,15 +168,17 @@ export const Header = () => {
                   </li>
                 ))}
                 <li className="pt-2">
-                  <a
-                    href="https://wa.me/554199851704"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handlePedirWhatsApp();
+                      setIsMenuOpen(false);
+                    }}
                     className="btn-whatsapp w-full justify-center"
                   >
                     <Phone className="w-5 h-5" />
                     <span>Pedir pelo WhatsApp</span>
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>

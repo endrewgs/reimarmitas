@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { WhatsAppBranchProvider } from "@/context/WhatsAppBranchContext";
 import Index from "./pages/Index";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -17,6 +18,7 @@ const App = () => {
       <TooltipProvider>
         <AuthProvider>
           <CartProvider>
+            <WhatsAppBranchProvider>
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -26,6 +28,7 @@ const App = () => {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
+            </WhatsAppBranchProvider>
           </CartProvider>
         </AuthProvider>
       </TooltipProvider>

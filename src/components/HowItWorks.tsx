@@ -44,14 +44,14 @@ export const HowItWorks = () => {
                 <div className="hidden lg:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-border" />
               )}
 
-              <div className="bg-card rounded-2xl p-6 shadow-card hover:shadow-elevated transition-all duration-300 relative z-10">
+              <div className="bg-card rounded-2xl p-6 shadow-card hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 relative z-10">
                 {/* Step Number */}
                 <div className="absolute -top-3 -left-3 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
                   {index + 1}
                 </div>
 
                 {/* Icon */}
-                <div className="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-secondary/40 transition-colors">
+                <div className="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-secondary/40 group-hover:scale-110 transition-all duration-300">
                   <step.icon className="w-8 h-8 text-primary" />
                 </div>
 

@@ -26,7 +26,7 @@ interface CartContextType {
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
   generateWhatsAppMessage: (customerInfo: CustomerInfo) => string;
-  getWhatsAppLink: (customerInfo: CustomerInfo) => string;
+  getWhatsAppLink: (customerInfo: CustomerInfo, whatsappNumber: string) => string;
   hasFreeDelivery: boolean;
 }
 
@@ -106,9 +106,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return message;
   }, [items, totalItems, totalPrice]);
 
-  const getWhatsAppLink = useCallback((customerInfo: CustomerInfo) => {
+  const getWhatsAppLink = useCallback((customerInfo: CustomerInfo, whatsappNumber: string) => {
     const message = encodeURIComponent(generateWhatsAppMessage(customerInfo));
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+    return `https://wa.me/${whatsappNumber}?text=${message}`;
   }, [generateWhatsAppMessage]);
 
   return (

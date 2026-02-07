@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { X, Trash2, Plus, Minus, ShoppingCart, MessageCircle, AlertCircle, User, MapPin, Phone, LogIn } from 'lucide-react';
 import { useCart, CustomerInfo } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
+import { useWhatsAppBranch } from '@/context/WhatsAppBranchContext';
 import { weightMultipliers, MIN_KIT_QUANTITY, FREE_DELIVERY_MINIMUM } from '@/data/products';
 import { useToast } from '@/hooks/use-toast';
 import AuthModal from './AuthModal';
@@ -22,6 +23,7 @@ export const CartDrawer = () => {
 
   const { user, profile, updateProfile } = useAuth();
   const { toast } = useToast();
+  const { openBranchDialog } = useWhatsAppBranch();
 
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
     name: '',
@@ -97,17 +99,15 @@ export const CartDrawer = () => {
   };
 
   const handleWhatsAppClick = async () => {
-    if (validateForm()) {
-      // Save profile data if user is logged in
-      if (user) {
-        await saveProfileData();
-        toast({
-          title: 'Dados salvos!',
-          description: 'Seus dados foram salvos para próximos pedidos.',
-        });
-      }
-      window.open(getWhatsAppLink(customerInfo), '_blank', 'noopener,noreferrer');
+    if (!validateForm()) return;
+    if (user) {
+      await saveProfileData();
+      toast({
+        title: 'Dados salvos!',
+        description: 'Seus dados foram salvos para próximos pedidos.',
+      });
     }
+    openBranchDialog((whatsappNumber) => getWhatsAppLink(customerInfo, whatsappNumber));
   };
 
   return (

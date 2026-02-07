@@ -1,16 +1,18 @@
 import { Instagram, Globe, Mail, Phone, Heart } from "lucide-react";
 import { INSTAGRAM_URL, WEBSITE_URL, EMAIL } from "@/data/products";
+import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
 import logo from "@/assets/logo-rei-marmitas.jpeg";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { openBranchDialog } = useWhatsAppBranch();
 
   return (
     <footer className="bg-foreground text-primary-foreground py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           {/* Logo */}
-          <img src={logo} alt="Rei das Marmitas Express" className="w-20 h-20 rounded-full shadow-lg mb-6" />
+          <img src={logo} alt="Rei das Marmitas Express" className="w-20 h-20 rounded-full shadow-lg mb-6 transition-transform duration-300 hover:scale-105" />
 
           {/* Tagline */}
           <p className="text-primary-foreground/80 mb-6 max-w-md">
@@ -25,7 +27,7 @@ export const Footer = () => {
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 transition-colors"
+              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 hover:scale-110 transition-all duration-300"
               aria-label="Instagram"
             >
               <Instagram className="w-5 h-5" />
@@ -34,27 +36,26 @@ export const Footer = () => {
               href={WEBSITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 transition-colors"
+              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 hover:scale-110 transition-all duration-300"
               aria-label="Website"
             >
               <Globe className="w-5 h-5" />
             </a>
             <a
               href={`mailto:${EMAIL}`}
-              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 transition-colors"
+              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 hover:scale-110 transition-all duration-300"
               aria-label="E-mail"
             >
               <Mail className="w-5 h-5" />
             </a>
-            <a
-              href="https://wa.me/554199851704"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-whatsapp/80 transition-colors"
+            <button
+              type="button"
+              onClick={() => openBranchDialog((num) => `https://wa.me/${num}`)}
+              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-whatsapp/80 hover:scale-110 transition-all duration-300"
               aria-label="WhatsApp"
             >
               <Phone className="w-5 h-5" />
-            </a>
+            </button>
           </div>
 
           {/* Copyright */}
