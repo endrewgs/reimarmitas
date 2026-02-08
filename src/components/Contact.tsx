@@ -1,4 +1,4 @@
-import { Instagram, Globe, Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Instagram, Globe, Mail, Phone, Clock } from "lucide-react";
 import { INSTAGRAM_URL, WEBSITE_URL, EMAIL } from "@/data/products";
 import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
 import logo from "@/assets/logo-rei-marmitas.jpeg";
@@ -6,7 +6,7 @@ import logo from "@/assets/logo-rei-marmitas.jpeg";
 const branches = [
   {
     name: "Matriz Curitiba",
-    address: "Rua Professor Fábio De Sousa, 2346 - Portão",
+    // Endereço removido conforme solicitado
     whatsapp: "41 99985-1704",
     whatsappLink: "https://wa.me/554199851704",
     hours: [
@@ -17,7 +17,7 @@ const branches = [
   },
   {
     name: "Unidade Fazenda Rio Grande",
-    address: "Rua de Exemplo, 123 - BairroX",
+    // Endereço removido conforme solicitado
     whatsapp: "41 99703-0071",
     whatsappLink: "https://wa.me/5541997030071",
     hours: [
@@ -57,11 +57,16 @@ const socialLinks = [
 
 export const Contact = () => {
   const { openBranchDialog } = useWhatsAppBranch();
+  
   return (
     <section id="contato" className="py-16 bg-card">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <img src={logo} alt="Rei das Marmitas Express" className="w-24 h-24 mx-auto rounded-full shadow-lg mb-6 transition-transform duration-300 hover:scale-105" />
+          <img 
+            src={logo} 
+            alt="Rei das Marmitas Express" 
+            className="w-24 h-24 mx-auto rounded-full shadow-lg mb-6 transition-transform duration-300 hover:scale-105" 
+          />
 
           <h2 className="section-title mb-4">
             Fale <span className="text-primary">Conosco</span>
@@ -98,7 +103,7 @@ export const Contact = () => {
             )}
           </div>
 
-          {/* Contact Info */}
+          {/* Contact Info (Email) */}
           <div className="bg-muted rounded-2xl p-6 mb-10">
             <p className="text-muted-foreground mb-2">E-mail para contato:</p>
             <a
@@ -109,7 +114,7 @@ export const Contact = () => {
             </a>
           </div>
 
-          {/* Unidades */}
+          {/* Unidades (Cards sem Endereço) */}
           <h3 className="text-lg font-semibold text-foreground mb-6">Nossas unidades</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {branches.map((branch) => (
@@ -121,14 +126,9 @@ export const Contact = () => {
                   <span className="w-2 h-6 rounded-full bg-primary" />
                   {branch.name}
                 </h4>
+                
                 <div className="space-y-4">
-                  <div className="flex gap-3">
-                    <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-muted-foreground text-sm">Endereço</p>
-                      <p className="font-medium text-foreground">{branch.address}</p>
-                    </div>
-                  </div>
+                  {/* WhatsApp */}
                   <div className="flex gap-3">
                     <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <div>
@@ -143,6 +143,8 @@ export const Contact = () => {
                       </a>
                     </div>
                   </div>
+
+                  {/* Horário de Funcionamento */}
                   <div className="flex gap-3">
                     <Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <div>

@@ -14,14 +14,14 @@ const BRANCHES = [
   {
     id: 'curitiba',
     name: 'Matriz Curitiba',
-    address: 'Centro / Batel / Água Verde',
-    phone: '5541999999999', // <--- Troque pelo número real da Matriz
+    address: 'Toda a região de Curitiba',
+    phone: '5541999851704', 
   },
   {
     id: 'fazenda',
     name: 'Unidade Fazenda Rio Grande',
     address: 'Região Metropolitana',
-    phone: '5541988888888', // <--- Troque pelo número real da Filial
+    phone: '5541997030071',
   }
 ];
 

@@ -25,6 +25,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   const currentPrice = product.basePrice * weightMultipliers[selectedWeight].multiplier;
+  const isLowCarb = product.category === 'lowcarb';
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
@@ -46,28 +47,31 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         />
         
         {/* Category Badge */}
-        {product.category === 'lowcarb' && (
-          <span className="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+        {isLowCarb && (
+          <span className="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 z-10">
             <Leaf className="w-3 h-3" />
             LOW CARB
           </span>
         )}
 
-        {/* Price Tag - VISUAL AMARELO AJUSTADO (Ref: Imagem) */}
-        <div className="absolute bottom-2 right-2 bg-yellow-400 text-black 
-                      px-2 py-1.5 rounded-md shadow-md min-w-[90px]">
+        {/* Price Tag - ALINHADO À ESQUERDA (Topo no Mobile, Base no Desktop) */}
+        <div className={`absolute left-2 bg-yellow-400 text-black 
+                      px-1.5 py-1 md:px-2 md:py-1.5 rounded-md shadow-md md:min-w-[90px] z-10
+                      ${isLowCarb ? 'top-12 md:top-auto' : 'top-2 md:top-auto'} /* Desce se tiver badge lowcarb */
+                      md:bottom-2 md:left-auto md:right-2 /* Desktop volta pra direita/baixo */
+                      `}>
           
-          {/* Linha Superior: SÓ (Esq) ... Preço (Dir) */}
-          <div className="flex items-baseline justify-between leading-none gap-2">
-            <span className="text-[10px] font-bold uppercase">Só</span>
-            <span className="text-lg font-extrabold"> {/* Fonte afinada: Black -> Extrabold */}
+          {/* Linha Superior: SÓ ... Preço */}
+          <div className="flex items-baseline justify-between leading-none gap-1 md:gap-2">
+            <span className="text-[8px] md:text-[10px] font-bold uppercase">Só</span>
+            <span className="text-base md:text-lg font-extrabold">
               R$ {currentPrice.toFixed(2).replace('.', ',')}
             </span>
           </div>
           
-          {/* Linha Inferior: Peso (Esq) */}
+          {/* Linha Inferior: Peso */}
           <div className="text-left leading-none mt-0.5">
-            <span className="text-[10px] font-bold">/{selectedWeight}</span>
+            <span className="text-[8px] md:text-[10px] font-bold">/{selectedWeight}</span>
           </div>
         </div>
       </div>

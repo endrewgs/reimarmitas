@@ -39,12 +39,14 @@ export const Header = () => {
 
         <nav className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            {/* Logo (desktop) + WhatsApp Fazenda Rio Grande (mobile) */}
+            {/* Logo Mobile Ajustada */}
             <a href="#" className="flex items-center transition-transform duration-300 hover:scale-105 active:scale-100">
               <img
                 src={logo}
                 alt="Rei das Marmitas Express"
-                className="h-12 sm:h-14 w-auto object-contain rounded-full shadow-lg"
+                // AJUSTE FINAL: Reduzi para 'h-10' no mobile e removi margens extras. 
+                // Isso centraliza ela perfeitamente sem cortar.
+                className="h-10 sm:h-14 w-auto object-contain rounded-full shadow-lg bg-white p-0.5"
               />
             </a>
 

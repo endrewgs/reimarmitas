@@ -3,22 +3,24 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CartProvider } from "@/context/CartContext";
-import { AuthProvider } from "@/context/AuthContext";
-import { WhatsAppBranchProvider } from "@/context/WhatsAppBranchContext";
 import Index from "./pages/Index";
-import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
+import ResetPassword from "./pages/ResetPassword";
+import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
+import { WhatsAppBranchProvider } from "./context/WhatsAppBranchContext";
+import { FloatingWhatsApp } from "./components/FloatingWhatsApp";
+// 1. Importe o componente
+import { BackgroundMusic } from "./components/BackgroundMusic"; 
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AuthProvider>
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <AuthProvider>
+        <WhatsAppBranchProvider>
           <CartProvider>
-            <WhatsAppBranchProvider>
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -27,13 +29,15 @@ const App = () => {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <FloatingWhatsApp />
+              {/* 2. Adicione o componente aqui */}
+              <BackgroundMusic /> 
             </BrowserRouter>
-            </WhatsAppBranchProvider>
           </CartProvider>
-        </AuthProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+        </WhatsAppBranchProvider>
+      </AuthProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;

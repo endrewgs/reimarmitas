@@ -1,6 +1,7 @@
 import { Instagram, Globe, Mail, Phone, Heart } from "lucide-react";
 import { INSTAGRAM_URL, WEBSITE_URL, EMAIL } from "@/data/products";
 import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
+// VOLTAMOS PARA O JPEG QUE EXISTE
 import logo from "@/assets/logo-rei-marmitas.jpeg";
 
 export const Footer = () => {
@@ -11,17 +12,15 @@ export const Footer = () => {
     <footer className="bg-foreground text-primary-foreground py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
-          {/* Logo */}
+          {/* Logo JPEG */}
           <img src={logo} alt="Rei das Marmitas Express" className="w-20 h-20 rounded-full shadow-lg mb-6 transition-transform duration-300 hover:scale-105" />
 
-          {/* Tagline */}
           <p className="text-primary-foreground/80 mb-6 max-w-md">
             Marmitas congeladas de qualidade absoluta.
             <br />
             <strong>Entregas em até 120 minutos ou ganhe um brinde!</strong>
           </p>
 
-          {/* Social Links */}
           <div className="flex gap-4 mb-8">
             <a
               href={INSTAGRAM_URL}
@@ -58,7 +57,6 @@ export const Footer = () => {
             </button>
           </div>
 
-          {/* Copyright */}
           <div className="border-t border-primary-foreground/10 pt-6 w-full">
             <p className="text-sm text-primary-foreground/60 flex items-center justify-center gap-1">
               © {currentYear} Rei das Marmitas Express. Feito com

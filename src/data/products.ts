@@ -383,7 +383,7 @@ export const BRANCHES_WHATSAPP = [
   { name: "Unidade Fazenda Rio Grande", whatsappNumber: "5541997030071" },
 ] as const;
 
-export const INSTAGRAM_URL = "https://www.instagram.com/marmitas.congelada.curitiba?igsh=MTlzZWRzdXFkMmM0dA%3D%3D";
+export const INSTAGRAM_URL = "https://www.instagram.com/marmitas.congelada.curitiba?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 export const WEBSITE_URL = "https://www.reidasmarmitascongeladas.com/";
 export const EMAIL = "reidasmarmitasm@gmail.com";
 export const PIX_KEY = "reidasmarmitasm@gmail.com";
