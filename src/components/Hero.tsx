@@ -55,8 +55,8 @@ export const Hero = () => {
           </div>
 
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-4 animate-fade-in-up animation-delay-100">
-            Marmitas Fitness
-            <span className="block text-gradient-gold mt-2">de Qualidade Absoluta</span>
+            Melhores Marmitas
+            <span className="block text-gradient-gold mt-2">Fitness de Curitiba</span>
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-xl animate-fade-in-up animation-delay-200">

@@ -98,16 +98,24 @@ export const CartDrawer = () => {
     }
   };
 
-  const handleWhatsAppClick = async () => {
+  const handleWhatsAppClick = () => {
     if (!validateForm()) return;
-    if (user) {
-      await saveProfileData();
-      toast({
-        title: 'Dados salvos!',
-        description: 'Seus dados foram salvos para próximos pedidos.',
-      });
-    }
+
     openBranchDialog((whatsappNumber) => getWhatsAppLink(customerInfo, whatsappNumber));
+
+    if (user) {
+      saveProfileData()
+        .then(() => {
+          toast({
+            title: 'Dados salvos!',
+            description: 'Seus dados foram salvos para próximos pedidos.',
+          });
+        })
+        .catch((err) => {
+          console.error("Erro silencioso ao salvar perfil:", err);
+        });
+    }
+
   };
 
   return (

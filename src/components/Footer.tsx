@@ -16,7 +16,7 @@ export const Footer = () => {
           <img src={logo} alt="Rei das Marmitas Express" className="w-20 h-20 rounded-full shadow-lg mb-6 transition-transform duration-300 hover:scale-105" />
 
           <p className="text-primary-foreground/80 mb-6 max-w-md">
-            Marmitas congeladas de qualidade absoluta.
+            Melhores Marmitas Fitness de Curitiba.
             <br />
             <strong>Entregas em até 120 minutos ou ganhe um brinde!</strong>
           </p>

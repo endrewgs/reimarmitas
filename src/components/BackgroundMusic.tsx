@@ -1,138 +1,118 @@
-import { useState, useEffect, useRef } from "react";
-import { Volume2, VolumeX, Play, Pause, SkipForward, Music } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Volume2, VolumeX, Play, Pause, Music } from "lucide-react";
 import { Button } from "./ui/button";
 
-const PLAYLIST = [
-  {
-    title: "Happy - Pharrell Williams",
-    src: "/music/happy.mp3",
-  },
-  {
-    title: "Can't Stop The Feeling! - Justin Timberlake",
-    src: "/music/cant-stop-the-feeling.mp3",
-  },
-];
+// Definição do tipo para o TypeScript não reclamar do window
+declare global {
+  interface Window {
+    _bgMusicInstance?: HTMLAudioElement;
+  }
+}
+
+const SONG_SRC = "/music/happy.mp3";
 
 export const BackgroundMusic = () => {
+  // Estado visual apenas (a verdade está no objeto de áudio)
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Cria o elemento de áudio apenas uma vez
-    audioRef.current = new Audio(PLAYLIST[0].src);
-    audioRef.current.volume = 0.1; // Volume baixo (10%) como solicitado
+    // 1. SINGLETON: Verifica se JÁ existe um áudio rodando no navegador
+    // Se existir, usamos ele. Se não, criamos um novo e salvamos no window.
+    if (!window._bgMusicInstance) {
+      const audio = new Audio(SONG_SRC);
+      audio.loop = true;
+      audio.volume = 0.1;
+      window._bgMusicInstance = audio;
+    }
 
-    // Tenta tocar automaticamente quando a música terminar (próxima faixa)
-    const handleEnded = () => {
-      handleNext();
-    };
+    const audio = window._bgMusicInstance!;
 
-    audioRef.current.addEventListener("ended", handleEnded);
+    // 2. SINCRONIA: Atualiza o botão baseado na realidade do áudio
+    // (Caso ele já estivesse tocando de antes ou tenha sido pausado pelo sistema)
+    setIsPlaying(!audio.paused);
+    setIsMuted(audio.muted);
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.removeEventListener("ended", handleEnded);
-        audioRef.current.pause();
+    // Listeners para manter o botão de Play/Pause sempre fiel ao que está acontecendo
+    const syncPlay = () => setIsPlaying(true);
+    const syncPause = () => setIsPlaying(false);
+    
+    audio.addEventListener("play", syncPlay);
+    audio.addEventListener("pause", syncPause);
+
+    // 3. AUTOPLAY UNLOCKER: Tenta tocar no primeiro clique na tela
+    const unlockAudio = () => {
+      if (audio.paused) {
+        audio.play().catch((e) => console.log("Autoplay bloqueado:", e));
       }
+    };
+    // Adiciona listener global apenas se estiver pausado
+    if (audio.paused) {
+      window.addEventListener("click", unlockAudio, { once: true });
+    }
+
+    // CLEANUP: Ao sair do componente, apenas removemos os listeners.
+    // NÃO pausamos o áudio aqui, para que a música continue ao navegar entre páginas.
+    return () => {
+      audio.removeEventListener("play", syncPlay);
+      audio.removeEventListener("pause", syncPause);
+      window.removeEventListener("click", unlockAudio);
     };
   }, []);
 
-  // Monitora interação do usuário para tentar dar play (bypass autoplay policy)
-  useEffect(() => {
-    const tryAutoPlay = () => {
-      if (!hasInteracted && audioRef.current) {
-        audioRef.current.play()
-          .then(() => {
-            setIsPlaying(true);
-            setHasInteracted(true);
-          })
-          .catch(() => {
-            // Falha silenciosa se o navegador bloquear (comum)
-            console.log("Autoplay bloqueado aguardando clique");
-          });
-      }
-    };
+  // CONTROLES MANUAIS
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const audio = window._bgMusicInstance;
+    if (!audio) return;
 
-    // Adiciona listener de clique na página inteira para iniciar o áudio na primeira interação
-    window.addEventListener("click", tryAutoPlay, { once: true });
-
-    return () => window.removeEventListener("click", tryAutoPlay);
-  }, [hasInteracted]);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = PLAYLIST[currentSongIndex].src;
-      if (isPlaying) {
-        audioRef.current.play().catch(e => console.error("Erro ao tocar:", e));
-      }
+    if (audio.paused) {
+      audio.play().catch(console.error);
+    } else {
+      audio.pause();
     }
-  }, [currentSongIndex]);
+  };
 
-  useEffect(() => {
-    if (audioRef.current) {
-      if (isPlaying) audioRef.current.play().catch(() => setIsPlaying(false));
-      else audioRef.current.pause();
-    }
-  }, [isPlaying]);
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const audio = window._bgMusicInstance;
+    if (!audio) return;
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = isMuted;
-    }
-  }, [isMuted]);
-
-  const togglePlay = () => setIsPlaying(!isPlaying);
-  const toggleMute = () => setIsMuted(!isMuted);
-  
-  const handleNext = () => {
-    setCurrentSongIndex((prev) => (prev + 1) % PLAYLIST.length);
+    audio.muted = !audio.muted;
+    setIsMuted(audio.muted);
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 flex items-center gap-2 bg-card/80 backdrop-blur-md p-2 rounded-full shadow-lg border border-border transition-all hover:opacity-100 opacity-70 hover:scale-105">
+    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-md p-2 rounded-full shadow-sm border border-border transition-all hover:bg-card/90">
       
       {/* Botão Play/Pause */}
       <Button
         variant="ghost"
         size="icon"
-        className="h-8 w-8 rounded-full hover:bg-primary/20"
+        className="h-8 w-8 rounded-full hover:bg-primary/20 text-foreground"
         onClick={togglePlay}
       >
-        {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+        {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
       </Button>
 
-      {/* Info da Música (Visível apenas quando tocando ou hover) */}
+      {/* Nome da Música */}
       <div className="hidden md:flex items-center gap-2 px-2 overflow-hidden max-w-[150px]">
         <Music className={`h-3 w-3 ${isPlaying ? 'animate-pulse text-secondary' : 'text-muted-foreground'}`} />
-        <span className="text-xs truncate font-medium">
-          {PLAYLIST[currentSongIndex].title}
+        <span className="text-xs truncate font-medium select-none text-foreground/90">
+          Happy - Pharrell Williams
         </span>
       </div>
 
-      {/* Controles Extras */}
-      <div className="flex gap-1">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 rounded-full hover:bg-primary/20"
-          onClick={handleNext}
-          title="Próxima"
-        >
-          <SkipForward className="h-4 w-4" />
-        </Button>
+      {/* Botão Mute */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8 rounded-full hover:bg-primary/20 text-foreground"
+        onClick={toggleMute}
+      >
+        {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+      </Button>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 rounded-full hover:bg-primary/20"
-          onClick={toggleMute}
-        >
-          {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-        </Button>
-      </div>
     </div>
   );
 };

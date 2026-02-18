@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
 import AuthModal from "./AuthModal";
 import logo from "@/assets/logo-rei-marmitas.jpeg";
+import { BackgroundMusic } from "./BackgroundMusic";
 
 const navLinks = [
   { href: "#cardapio", label: "Cardápio" },
@@ -63,6 +64,7 @@ export const Header = () => {
 
             {/* Actions */}
             <div className="flex items-center gap-3">
+              <BackgroundMusic />
               {/* Auth Button - Desktop */}
               {!loading &&
                 (user ? (
