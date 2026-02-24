@@ -377,13 +377,15 @@ export const weightMultipliers: Record<WeightOption, { label: string; multiplier
 
 export const WHATSAPP_NUMBER = "5541999851704";
 
-/** Unidades para escolha no WhatsApp (pedido / contato) */
 export const BRANCHES_WHATSAPP = [
   { name: "Matriz Curitiba", whatsappNumber: "5541999851704" },
   { name: "Unidade Fazenda Rio Grande", whatsappNumber: "5541997030071" },
 ] as const;
 
-export const INSTAGRAM_URL = "https://www.instagram.com/marmitas.congelada.curitiba?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
+export const INSTAGRAM_USERNAME = "marmitas.congelada.curitiba";
+
+export const INSTAGRAM_URL = "https://www.instagram.com/marmitas.congelada.curitiba/";
+
 export const WEBSITE_URL = "https://www.reidasmarmitascongeladas.com/";
 export const EMAIL = "reidasmarmitasm@gmail.com";
 export const PIX_KEY = "reidasmarmitasm@gmail.com";

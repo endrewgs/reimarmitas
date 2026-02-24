@@ -1,5 +1,5 @@
-import { Instagram, Globe, Mail, Phone, Clock } from "lucide-react";
-import { INSTAGRAM_URL, WEBSITE_URL, EMAIL } from "@/data/products";
+import { Instagram, Mail, Phone, Clock } from "lucide-react";
+import { INSTAGRAM_URL, EMAIL } from "@/data/products";
 import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
 import logo from "@/assets/logo-rei-marmitas.jpeg";
 
@@ -34,12 +34,6 @@ const socialLinks = [
     label: "Instagram",
     href: INSTAGRAM_URL,
     color: "hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-500",
-  },
-  {
-    icon: Globe,
-    label: "Website",
-    href: WEBSITE_URL,
-    color: "hover:bg-primary",
   },
   {
     icon: Mail,

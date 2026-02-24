@@ -8,27 +8,35 @@ export const Hero = () => {
   
   return (
     <section className="relative min-h-screen flex items-center pt-32 pb-16 overflow-hidden">
-      {/* NOVA ANIMAÇÃO PROFISSIONAL: Revelação Suave (Fade-in + Scale-up)
-         Substituí a animação anterior por esta que é mais elegante.
-      */}
       <style>{`
-        @keyframes elegantReveal {
-          0% {
+        /* 1. Animação de Entrada (Carregamento da página) */
+        @keyframes entranceUp {
+          from {
             opacity: 0;
-            transform: scale(0.8) translateY(20px);
-            filter: blur(10px);
+            transform: translateY(40px) scale(0.9);
           }
-          100% {
+          to {
             opacity: 1;
-            transform: scale(1) translateY(0);
-            filter: blur(0px);
+            transform: translateY(0) scale(1);
           }
         }
-        .animate-elegant-reveal {
-          /* Duração mais longa para suavidade, com um 'delay' para não brigar com o título */
-          animation: elegantReveal 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-          animation-delay: 0.3s; 
+
+        /* 2. Animação Contínua (Flutuação / Levitação) */
+        @keyframes floating {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-12px); } /* Sobe levemente */
+          100% { transform: translateY(0px); }
+        }
+
+        .animate-entrance {
+          animation: entranceUp 1s ease-out forwards;
           opacity: 0; /* Começa invisível */
+          animation-delay: 0.2s;
+        }
+
+        .animate-floating {
+          /* Flutua infinitamente de forma suave */
+          animation: floating 4s ease-in-out infinite;
         }
       `}</style>
 
@@ -41,16 +49,19 @@ export const Hero = () => {
       <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
         <div className="max-w-4xl flex flex-col items-center text-center">
           
-          {/* Logo Badge com a NOVA classe .animate-elegant-reveal */}
-          <div className="mb-8">
+          {/* ESTRUTURA DE ANIMAÇÃO DUPLA:
+            1. A div externa (wrapper) controla a ENTRADA na tela.
+            2. A imagem interna controla a FLUTUAÇÃO infinita.
+            Isso garante que uma animação não cancele a outra.
+          */}
+          <div className="mb-8 mt-12 md:mt-16 animate-entrance">
             <img 
               src={logo} 
               alt="Rei das Marmitas Express"
-              className="w-32 h-32 md:w-48 md:h-48 object-contain rounded-full 
+              className="w-40 h-40 md:w-64 md:h-64 object-contain rounded-full 
                          border-4 border-secondary 
                          shadow-2xl shadow-secondary/20
-                         animate-elegant-reveal /* <--- CLASSE DA NOVA ANIMAÇÃO */
-                         transition-transform duration-300 hover:scale-105" 
+                         animate-floating" 
             />
           </div>
 
@@ -103,7 +114,6 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* ANIMAÇÃO DE BOLA PARA BAIXO */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-subtle">
         <ArrowDown className="w-8 h-8 text-secondary" />
       </div>

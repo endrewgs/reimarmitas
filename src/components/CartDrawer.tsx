@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X, Trash2, Plus, Minus, ShoppingCart, MessageCircle, AlertCircle, User, MapPin, Phone, LogIn } from 'lucide-react';
 import { useCart, CustomerInfo } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -24,6 +24,9 @@ export const CartDrawer = () => {
   const { user, profile, updateProfile } = useAuth();
   const { toast } = useToast();
   const { openBranchDialog } = useWhatsAppBranch();
+
+  // NOVA REF PARA ROLAGEM AUTOMÁTICA
+  const formRef = useRef<HTMLDivElement>(null);
 
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
     name: '',
@@ -99,7 +102,14 @@ export const CartDrawer = () => {
   };
 
   const handleWhatsAppClick = () => {
-    if (!validateForm()) return;
+    // SE A VALIDAÇÃO FALHAR, ROLA ATÉ O FORMULÁRIO
+    if (!validateForm()) {
+      // O setTimeout garante que o React renderize os erros primeiro antes de rolar
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+      return;
+    }
 
     openBranchDialog((whatsappNumber) => getWhatsAppLink(customerInfo, whatsappNumber));
 
@@ -227,8 +237,8 @@ export const CartDrawer = () => {
                 </button>
               )}
 
-              {/* Customer Info Form */}
-              <div className="space-y-3 bg-muted rounded-xl p-4">
+              {/* Customer Info Form - ADICIONADO O ref={formRef} AQUI */}
+              <div className="space-y-3 bg-muted rounded-xl p-4" ref={formRef}>
                 <h3 className="font-semibold text-foreground flex items-center gap-2">
                   <User className="w-5 h-5 text-primary" />
                   Dados para Entrega

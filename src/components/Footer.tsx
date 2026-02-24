@@ -1,5 +1,5 @@
-import { Instagram, Globe, Mail, Phone, Heart } from "lucide-react";
-import { INSTAGRAM_URL, WEBSITE_URL, EMAIL } from "@/data/products";
+import { Instagram, Mail, Phone, Heart } from "lucide-react";
+import { INSTAGRAM_URL, EMAIL } from "@/data/products";
 import { useWhatsAppBranch } from "@/context/WhatsAppBranchContext";
 // VOLTAMOS PARA O JPEG QUE EXISTE
 import logo from "@/assets/logo-rei-marmitas.jpeg";
@@ -30,15 +30,6 @@ export const Footer = () => {
               aria-label="Instagram"
             >
               <Instagram className="w-5 h-5" />
-            </a>
-            <a
-              href={WEBSITE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 hover:scale-110 transition-all duration-300"
-              aria-label="Website"
-            >
-              <Globe className="w-5 h-5" />
             </a>
             <a
               href={`mailto:${EMAIL}`}
