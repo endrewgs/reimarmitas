@@ -38,7 +38,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <article className="card-product group">
-      {/* Image */}
+      {/* Imagem */}
       <div className="relative overflow-hidden aspect-[4/3]">
         <img
           src={getProductImage()}
@@ -46,7 +46,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         
-        {/* Category Badge */}
+        {/* Badge Categoria */}
         {isLowCarb && (
           <span className="absolute top-2 left-2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 z-10">
             <Leaf className="w-2 h-2" />
@@ -54,30 +54,27 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </span>
         )}
 
-        {/* Price Tag - REDUZIDA CONFORME PEDIDO */}
+        {/* Tag de Preço - ATUALIZADA (Sem o /300g) */}
         <div className={`absolute bg-yellow-400 text-black 
-                      px-1.5 py-0.5 rounded shadow-sm z-10
+                      px-2 py-1.5 rounded shadow-sm z-10
                       ${isLowCarb ? 'top-8 left-2 md:top-auto md:bottom-2 md:left-auto md:right-2' : 'top-2 left-2 md:top-auto md:bottom-2 md:left-auto md:right-2'}
                       `}>
           <div className="flex items-baseline leading-none gap-1">
-            <span className="text-[9px] font-bold uppercase">Só</span>
-            <span className="text-sm font-extrabold">
+            <span className="text-[10px] font-bold uppercase">Por</span>
+            <span className="text-sm md:text-base font-extrabold">
               R$ {currentPrice.toFixed(2).replace('.', ',')}
             </span>
-          </div>
-          <div className="text-left leading-none mt-0.5">
-            <span className="text-[8px] font-bold">/300g</span>
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-4">
+      {/* Conteúdo */}
+      <div className="p-4 flex flex-col h-full">
         <h3 className="font-display font-semibold text-sm sm:text-base text-foreground mb-3 line-clamp-2">
           {product.name}
         </h3>
 
-        {/* Integral Rice Option */}
+        {/* Opção Arroz Integral */}
         {product.hasIntegralRice && (
           <label className="flex items-center gap-2 mb-4 cursor-pointer group/check">
             <input
@@ -92,7 +89,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </label>
         )}
 
-        {/* Quantity + Add Button */}
+        {/* Quantidade e Botão Adicionar */}
         <div className="flex items-center gap-1.5 sm:gap-3 mt-auto">
           <div className="flex items-center bg-muted rounded-md shrink-0">
             <button
