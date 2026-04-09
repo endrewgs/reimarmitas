@@ -20,7 +20,7 @@ const BRANCHES = [
   {
     id: 'fazenda',
     name: 'Unidade Fazenda Rio Grande',
-    address: 'Região Metropolitana',
+    address: 'Exclusivo Fazenda Rio Grande',
     phone: '5541997030071',
   }
 ];
@@ -35,11 +35,9 @@ const WhatsAppBranchContext = createContext<WhatsAppBranchContextType | undefine
 
 export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // Armazena a função de callback no estado
   const [pendingCallback, setPendingCallback] = useState<BranchCallback | null>(null);
 
   const openBranchDialog = (callback: BranchCallback) => {
-    // O React pede que, ao salvar uma função no useState, usemos essa sintaxe () => callback
     setPendingCallback(() => callback);
     setIsOpen(true);
   };
@@ -48,13 +46,9 @@ export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) =>
     if (pendingCallback) {
       const url = pendingCallback(phone);
       
-      // --- CORREÇÃO DO ERRO ---
-      // window.open é bloqueado em muitos iPhones/Androids.
-      // Usar window.location.href força o navegador a abrir o link/app imediatamente.
       window.location.href = url;
     }
     
-    // Fecha o modal e limpa o estado
     setIsOpen(false);
     setTimeout(() => setPendingCallback(null), 100);
   };
@@ -71,7 +65,7 @@ export const WhatsAppBranchProvider = ({ children }: { children: ReactNode }) =>
               Escolha a Unidade
             </DialogTitle>
             <DialogDescription className="text-center">
-              Selecione a unidade mais próxima para agilizar seu atendimento.
+              Peça o cardápio atualizado via Whatsapp.
             </DialogDescription>
           </DialogHeader>
 
